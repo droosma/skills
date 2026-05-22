@@ -82,6 +82,20 @@ If you remember nothing else from this skill, catch these. They are the highest-
 
 **Significance inflation:** calling things "significant", "important", "notable", "valuable" without naming what specifically makes them so.
 
+**Rhetorical self-QA:** "The result? Devastating." / "The takeaway? Simple." / "The fix? A Y." Posing a question nobody asked, then answering it for false dramatic effect.
+
+**False suspense transitions:** "Here's the kicker." / "Here's the thing." / "Here's where it gets interesting." / "Here's what most people miss." Building drama before a point that didn't need it.
+
+**Fractal summaries:** Announcing what you're about to say, saying it, then summarizing what you said. "In this section, we'll explore..." [content] "...as we've seen in this section."
+
+**Short punchy fragment abuse:** Excessive one-sentence paragraphs for manufactured emphasis. Short sentences are good; every sentence being a standalone paragraph is an AI rhythm. Humans think in connected sequences.
+
+**Invented concept labels:** Coining compound labels ("the supervision paradox", "the acceleration trap", "workload creep") and using them as if they're established terms. If you didn't cite it, you invented it.
+
+**Magic adverbs:** "Quietly" / "Deeply" / "Fundamentally" / "Remarkably" / "Arguably" used to inject unearned significance.
+
+**Dead metaphor beating:** Latching onto one metaphor and repeating it 5+ times across a piece instead of using it once and moving on.
+
 For full specifics, replacements, and per-item diagnostics, see the reference files listed at the bottom of this file.
 
 ---
@@ -112,6 +126,12 @@ For full specifics, replacements, and per-item diagnostics, see the reference fi
 20. **Elegant variation.** Cycling through forced synonyms for the same thing? ("the protagonist," then "the key player," then "the eponymous figure") Just use the name again.
 21. **Meta commentary.** "In this section, we will discuss..." / "Let me walk you through..."? Say the thing. Don't announce it.
 22. **Title case in headers.** Capitalizing every word? Use sentence case instead.
+23. **Rhetorical self-QA.** Did you pose a question then immediately answer it? ("The result? Devastating.") Just state it directly.
+24. **False suspense.** "Here's the kicker" / "Here's the thing" / "Here's where it gets interesting"? Cut the buildup.
+25. **Fragment overdose.** Are most paragraphs a single sentence? Group related thoughts into real paragraphs.
+26. **Invented labels.** Did you coin a compound concept ("the X paradox", "the Y trap") without citing a source? Cut or explain.
+27. **Dead metaphor.** Same metaphor used more than twice? Use it once, move on.
+28. **Magic adverbs.** "Quietly", "deeply", "fundamentally", "remarkably" injecting fake significance? Cut them.
 
 If a check needs deeper guidance, look up the corresponding rule in `rules.md`.
 
@@ -155,3 +175,4 @@ These are not auto-loaded with this skill. Read them on demand using the file-re
 - **`rules.md`**: Full expanded rules 2-22 with banned-pattern lists and ❌/✅ examples for each. **Read when** writing prose longer than a short paragraph, or when the self-check flags a pattern and you need the specifics.
 - **`vocabulary.md`**: The full AI vocabulary list with per-item replacements and diagnostics. **Read when** editing or rewriting existing text, or when you suspect a vocabulary cluster and want to confirm which words count.
 - **`examples.md`**: A full before/after paragraph rewrite with a rule-by-rule walkthrough. **Read when** writing longer prose, or when you want to see how the rules interact across a full paragraph.
+- **`references/sources.md`**: External sites that document AI writing patterns. **Read when** the user asks to update or improve this skill, or when you want to discover new patterns not yet covered here.
