@@ -32,22 +32,16 @@ Speaker Name: Their response.
 
 ## Usage
 
-Run the cleanup script on a VTT file:
+Run `clean_vtt.py` — it lives next to this SKILL.md, so resolve it relative to this skill's directory:
 
 ```
-python D:\skills\vtt-cleanup\clean_vtt.py "path/to/file.vtt"
+python <skill-dir>/clean_vtt.py "path/to/file.vtt"
 ```
 
-This outputs the cleaned transcript to stdout. Redirect to a file if needed:
+This outputs the cleaned transcript to stdout. Use the `--output` flag to write a file instead:
 
 ```
-python D:\skills\vtt-cleanup\clean_vtt.py "path/to/file.vtt" > cleaned.txt
-```
-
-Or use the `--output` flag:
-
-```
-python D:\skills\vtt-cleanup\clean_vtt.py "path/to/file.vtt" --output cleaned.txt
+python <skill-dir>/clean_vtt.py "path/to/file.vtt" --output cleaned.txt
 ```
 
 ## Instructions for the agent

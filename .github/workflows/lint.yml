@@ -1,0 +1,27 @@
+name: Lint skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Lint SKILL.md files
+        run: python scripts/lint_skills.py
+
+      - name: Test vtt-cleanup
+        run: python vtt-cleanup/tests/test_clean_vtt.py
+
+      - name: Test tweakers-thread-scraper
+        run: |
+          pip install beautifulsoup4 lxml requests
+          python tweakers-thread-scraper/tests/test_parse.py

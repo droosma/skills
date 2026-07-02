@@ -1,0 +1,4 @@
+Alice Jansen: Good morning everyone, shall we get started? I want to cover the release plan first.
+Bob de Vries: Sounds good. The pipeline is green as of this morning.
+Untagged narration line without a speaker.
+Alice Jansen: Great, then let's ship it on Thursday.

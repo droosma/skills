@@ -1,4 +1,4 @@
-# Handoff: <repo-name> on <branch>
+# Handoff: <repo-name> — <catchy title>
 
 > **Last updated:** <ISO 8601 timestamp, e.g. 2026-06-01T14:32:00+02:00>
 > **Iteration:** <n>  (increment each time this file is rewritten)

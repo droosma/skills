@@ -4,7 +4,7 @@ description: >
   Capture a session into a handoff file so a fresh LLM context can continue the work,
   or read an existing handoff to resume. Two modes: write (the default) captures the
   goal, decisions, rejected approaches, current state, and next action from the
-  current session; read loads the existing handoff for this repo+branch back into
+  current session; read loads an existing handoff (chosen by its catchy title) back into
   context. Use when the user says "handoff", "create a handoff", "write a handoff",
   "read the handoff", "resume handoff", or wants to hand work off to a different
   agent / context / teammate.
@@ -19,22 +19,22 @@ Two modes, picked from the user's wording:
 
 ## File location
 
-- **Vault:** `C:\Users\DuncanRoosma\OneDrive\SecondBrain\Work\Handoffs`
-- **Archive:** `C:\Users\DuncanRoosma\OneDrive\SecondBrain\Work\Handoffs\archive`
-- **Filename:** `<repo-name>--<sanitized-branch>.md` (one active handoff per repo+branch)
+- **Vault:** `$env:HANDOFF_VAULT_DIR` if set, otherwise `<home>\OneDrive\SecondBrain\Work\Handoffs`. `handoff.ps1` resolves this — don't hardcode it.
+- **Archive:** `archive\` inside the vault.
+- **Filename:** `<repo-name>--<title-slug>.md`, where the title is a **catchy, conversation-based** description of the session — e.g. `exquise--trim-the-fat-affected-only-builds.md`. The repo/project prefix groups handoffs per project; the title (not the branch) captures what the session was about so they're easy to recognize. `handoff.ps1` derives the repo prefix automatically from git (or the directory name).
 
-Use `handoff.ps1` rather than hand-building the path — it handles branch sanitization, detached HEAD, and non-git directories:
+Use `handoff.ps1` rather than hand-building the path — it slugifies the title and handles the vault/archive directories. The script sits **next to this SKILL.md**; resolve it relative to this skill's directory. It needs PowerShell (`pwsh`, cross-platform; `powershell.exe` also works on Windows). Pass the title with `-Title`:
 
 ```powershell
-pwsh -NoProfile -File D:\skills\handoff\handoff.ps1 -Action path      # current repo+branch handoff path
-pwsh -NoProfile -File D:\skills\handoff\handoff.ps1 -Action archive   # move existing handoff to archive/ with timestamp
-pwsh -NoProfile -File D:\skills\handoff\handoff.ps1 -Action list      # list all active handoffs
+pwsh -NoProfile -File <skill-dir>/handoff.ps1 -Action path -Title "Trim the Fat: Affected-Only Builds"    # path for this titled handoff
+pwsh -NoProfile -File <skill-dir>/handoff.ps1 -Action archive -Title "Trim the Fat: Affected-Only Builds" # archive that handoff with a timestamp
+pwsh -NoProfile -File <skill-dir>/handoff.ps1 -Action list                                                 # list all active handoffs (by title slug)
 ```
 
 ## Write mode
 
-1. Resolve the path with `handoff.ps1 -Action path`.
-2. If a file already exists there, read it — you are producing an updated iteration, not a fresh one. Note what's completed, changed, or new.
+1. Pick a **catchy title** that reflects the conversation/topic, then resolve the path with `handoff.ps1 -Action path -Title "<title>"`.
+2. If a file already exists there, read it — you are producing an updated iteration, not a fresh one. Note what's completed, changed, or new. (If unsure whether a prior handoff for this topic exists, run `-Action list` and scan the slugs.)
 3. Gather repo state:
    - `git status -uno --short`
    - `git branch --show-current`
@@ -43,12 +43,12 @@ pwsh -NoProfile -File D:\skills\handoff\handoff.ps1 -Action list      # list all
 4. Draft the handoff from conversation context + git state using `template.md`. Fill in everything you can infer — don't ask the user about things visible in code or commits.
 5. **Ask at most 1–2 questions, and only if critical context is genuinely missing.** Most valuable thing to ask about: approaches you tried mid-conversation and rejected, with reasons that aren't captured in any commit. If none of that is missing, skip the questions entirely.
 6. Show the draft to the user, get confirmation.
-7. Archive the old handoff (`handoff.ps1 -Action archive`), then write the new one.
+7. Archive the old handoff (`handoff.ps1 -Action archive -Title "<title>"`), then write the new one.
 
 ## Read mode
 
-1. Resolve the path with `handoff.ps1 -Action path`.
-2. If no file exists: tell the user there's no handoff for this repo+branch and stop.
+1. Run `handoff.ps1 -Action list` to see active handoffs by title slug. Pick the one matching what the user wants to resume; if the title is obvious from context, resolve it directly with `-Action path -Title "<title>"`. If several plausibly match, ask the user which.
+2. If no relevant file exists: tell the user there's no matching handoff and stop.
 3. Read the file in full.
 4. Run `git log --since="<last_updated from handoff>"` to check what's happened since it was written. If the repo state diverges from "Current state" in the handoff, trust the repo and flag the divergence.
 5. Restate the goal and the next action to the user in one sentence, then continue work.
