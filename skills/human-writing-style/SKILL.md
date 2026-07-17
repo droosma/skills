@@ -147,7 +147,7 @@ If a check needs deeper guidance, look up the corresponding rule in `rules.md`.
 
 **Marketing / Product copy:** You can be enthusiastic, but ground claims in specifics. "Fast" means nothing; "renders in 40ms" means something. Some promotional language is expected in this genre, but avoid the generic AI version of it.
 
-**Technical documentation:** Clarity above all. Short sentences. Active voice. No puffery whatsoever.
+**Technical documentation:** Clarity above all. Short sentences. Active voice. No puffery whatsoever. For calibrating vocabulary, depth, and structure to the doc's target audience, also apply the sibling `write-for-audience` skill — that skill decides what to say for the reader; this one keeps the prose human.
 
 **Academic / Formal writing:** If the user explicitly requests natural tone in formal contexts, apply these rules lightly. Hedging, passive voice, and formal transitions ("Furthermore") may be appropriate. Focus mainly on cutting AI vocabulary clusters and significance inflation.
 

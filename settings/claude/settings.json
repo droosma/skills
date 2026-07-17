@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(az * show*)",
+      "Bash(az * list*)",
+      "Bash(az account show*)",
+      "Bash(az devops configure -l)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch --show-current)"
+    ],
+    "deny": [
+      "Bash(az * create*)",
+      "Bash(az * delete*)",
+      "Bash(az * update*)",
+      "Bash(az * set*)",
+      "Bash(az * add*)",
+      "Bash(az * remove*)",
+      "Bash(az * purge*)",
+      "Bash(az deployment *)",
+      "Bash(az account set*)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash D:/skills/settings/claude/statusline-command.sh"
+  },
+  "effortLevel": "high",
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true
+}

@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
+SKILLS_DIR = REPO / "skills"
 MAX_DESCRIPTION = 1024
 
 # repo-relative paths mentioned in prose that look like files inside the skill
@@ -83,7 +84,7 @@ def lint_skill(skill_md: Path) -> list[str]:
         if (skill_md.parent / ref).exists():
             continue
         # cross-skill references ("see `references/c4.md` in the mermaid skill")
-        if any((d / ref).exists() for d in REPO.iterdir() if d.is_dir()):
+        if any((d / ref).exists() for d in SKILLS_DIR.iterdir() if d.is_dir()):
             continue
         problems.append(f"{rel}: references `{ref}` which does not exist")
 
@@ -92,7 +93,7 @@ def lint_skill(skill_md: Path) -> list[str]:
 
 def main() -> int:
     skill_files = sorted(
-        p for p in REPO.glob("*/SKILL.md") if ".git" not in p.parts
+        p for p in SKILLS_DIR.glob("*/SKILL.md") if ".git" not in p.parts
     )
     if not skill_files:
         print("No SKILL.md files found — wrong working directory?", file=sys.stderr)

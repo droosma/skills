@@ -58,11 +58,33 @@ def topic_id_from_arg(arg: str) -> int:
     raise SystemExit(f"Could not work out a topic id from: {arg!r}")
 
 
-def fetch(session: requests.Session, url: str) -> str:
-    resp = session.get(url, headers=HEADERS, timeout=30)
-    resp.raise_for_status()
-    resp.encoding = resp.apparent_encoding or "utf-8"
-    return resp.text
+def fetch(session: requests.Session, url: str, max_retries: int = 5) -> str:
+    """GET with retry + exponential backoff on 429 / 5xx (honours Retry-After)."""
+    backoff = 5.0
+    for attempt in range(max_retries + 1):
+        try:
+            resp = session.get(url, headers=HEADERS, timeout=30)
+        except requests.exceptions.RequestException as exc:
+            if attempt == max_retries:
+                raise
+            print(f"    {type(exc).__name__}; retry in {backoff:.0f}s", file=sys.stderr)
+            time.sleep(backoff)
+            backoff = min(backoff * 2, 120)
+            continue
+        if resp.status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
+            wait = backoff
+            ra = resp.headers.get("Retry-After")
+            if ra and ra.isdigit():
+                wait = max(backoff, float(ra))
+            print(f"    HTTP {resp.status_code}; backing off {wait:.0f}s "
+                  f"(attempt {attempt + 1}/{max_retries})", file=sys.stderr)
+            time.sleep(wait)
+            backoff = min(backoff * 2, 120)
+            continue
+        resp.raise_for_status()
+        resp.encoding = resp.apparent_encoding or "utf-8"
+        return resp.text
+    raise RuntimeError(f"giving up on {url} after {max_retries} retries")
 
 
 def discover_pages(soup: BeautifulSoup, topic_id: int) -> int:
