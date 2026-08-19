@@ -16,6 +16,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
 AGENTS_DIR="$SCRIPT_DIR/agents"
+EXTENSIONS_DIR="$SCRIPT_DIR/extensions"
 SETTINGS_DIR="$SCRIPT_DIR/settings"
 
 ALL_MODE=0
@@ -26,9 +27,10 @@ declare -A TOOL_PATHS
 TOOL_PATHS=(
     ["Copilot CLI"]="$HOME/.copilot/skills"
     ["Claude Code"]="$HOME/.claude/skills"
+    ["Pi"]="$HOME/.pi/agent/skills"
     ["OpenCode"]="$HOME/.config/opencode/skills"
 )
-TOOL_ORDER=("Copilot CLI" "Claude Code" "OpenCode")
+TOOL_ORDER=("Copilot CLI" "Claude Code" "Pi" "OpenCode")
 
 # ── Discover skills (skills/* dirs containing a SKILL.md) ──────────
 SKILLS=()
@@ -234,6 +236,22 @@ if [[ -d "$AGENTS_DIR" ]]; then
     done
 fi
 
+# ── Step 4b: Link Pi extensions (pi's analog to hooks) ─────────────
+# Pi extensions are TypeScript modules in ~/.pi/agent/extensions/. Each
+# top-level .ts file or extension directory in the repo's extensions/ is
+# linked individually so pi can hot-reload them with /reload.
+if tool_selected "Pi" && [[ -d "$EXTENSIONS_DIR" ]]; then
+    target_dir="$HOME/.pi/agent/extensions"
+    printf "\n${CYAN}🧩 Pi extensions → %s${RESET}\n" "$target_dir"
+    mkdir -p "$target_dir"
+    for ext in "$EXTENSIONS_DIR"/*; do
+        [[ -e "$ext" ]] || continue
+        name="$(basename "$ext")"
+        [[ "$name" == "README.md" ]] && continue
+        link_repo "$target_dir/$name" "$ext" "$name" 0
+    done
+fi
+
 # ── Step 5: Link settings (real files backed up to .pre-repo.bak) ──
 printf "\n${CYAN}⚙  Settings${RESET}\n"
 if tool_selected "Claude Code"; then
@@ -245,6 +263,13 @@ if tool_selected "Copilot CLI"; then
     [[ -f "$SETTINGS_DIR/copilot/settings.json" ]]         && link_repo "$HOME/.copilot/settings.json"         "$SETTINGS_DIR/copilot/settings.json"         "~/.copilot/settings.json" 1
     [[ -f "$SETTINGS_DIR/copilot/copilot-instructions.md" ]] && link_repo "$HOME/.copilot/copilot-instructions.md" "$SETTINGS_DIR/copilot/copilot-instructions.md" "~/.copilot/copilot-instructions.md" 1
     [[ -d "$SETTINGS_DIR/shared" ]]                          && link_repo "$HOME/.copilot/shared"                  "$SETTINGS_DIR/shared"                           "~/.copilot/shared" 1
+fi
+if tool_selected "Pi"; then
+    # Pi's settings.json is deliberately NOT linked: pi writes machine state
+    # (e.g. lastChangelogVersion) into it, which would churn in git.
+    mkdir -p "$HOME/.pi/agent"
+    [[ -f "$SETTINGS_DIR/pi/AGENTS.md" ]] && link_repo "$HOME/.pi/agent/AGENTS.md" "$SETTINGS_DIR/pi/AGENTS.md" "~/.pi/agent/AGENTS.md" 1
+    [[ -d "$SETTINGS_DIR/shared" ]]       && link_repo "$HOME/.pi/agent/shared"   "$SETTINGS_DIR/shared"       "~/.pi/agent/shared" 1
 fi
 
 # ── Summary ─────────────────────────────────────────────────────────

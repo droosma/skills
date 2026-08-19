@@ -24,12 +24,14 @@ $ErrorActionPreference = 'Stop'
 $SkillRoot  = $PSScriptRoot
 $SkillsDir  = Join-Path $SkillRoot 'skills'
 $AgentsDir  = Join-Path $SkillRoot 'agents'
+$ExtensionsDir = Join-Path $SkillRoot 'extensions'
 $SettingsDir = Join-Path $SkillRoot 'settings'
 
 # ── Tool definitions ────────────────────────────────────────────────
 $Tools = @(
     @{ Name = 'Copilot CLI';  Path = Join-Path $env:USERPROFILE '.copilot\skills' }
     @{ Name = 'Claude Code';  Path = Join-Path $env:USERPROFILE '.claude\skills' }
+    @{ Name = 'Pi';           Path = Join-Path $env:USERPROFILE '.pi\agent\skills' }
     @{ Name = 'OpenCode';     Path = Join-Path $env:APPDATA     'opencode\skills' }
 )
 
@@ -218,6 +220,26 @@ if ($agentFiles) {
     }
 }
 
+# ── Step 4b: Link Pi extensions (pi's analog to hooks) ─────────────
+# Pi extensions are TypeScript modules in ~/.pi/agent/extensions/. Each
+# top-level .ts file or extension directory in the repo's extensions/ is
+# linked individually so pi can hot-reload them with /reload.
+if (('Pi' -in $selectedTools) -and (Test-Path $ExtensionsDir)) {
+    $extTarget = Join-Path $env:USERPROFILE '.pi\agent\extensions'
+    Write-Host "`n🧩 Pi extensions → $extTarget" -ForegroundColor Cyan
+    if (-not (Test-Path $extTarget)) { New-Item -ItemType Directory -Path $extTarget -Force | Out-Null }
+    foreach ($ext in Get-ChildItem $ExtensionsDir | Where-Object { $_.Name -ne 'README.md' }) {
+        try {
+            $status = New-RepoLink -LinkPath (Join-Path $extTarget $ext.Name) -TargetPath $ext.FullName
+            Report-Link $ext.Name $status
+        }
+        catch {
+            Write-Host "   ❌ $($ext.Name) — $($_.Exception.Message)" -ForegroundColor Red
+            $counts.errors++
+        }
+    }
+}
+
 # ── Step 5: Link settings ──────────────────────────────────────────
 # Real files in the way are backed up to <name>.pre-repo.bak first — merge
 # anything you still need from the backup into the repo file afterwards.
@@ -231,6 +253,12 @@ if ('Copilot CLI' -in $selectedTools) {
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\settings.json';               Target = Join-Path $SettingsDir 'copilot\settings.json' }
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\copilot-instructions.md'; Target = Join-Path $SettingsDir 'copilot\copilot-instructions.md' }
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\shared';                  Target = Join-Path $SettingsDir 'shared' }
+}
+if ('Pi' -in $selectedTools) {
+    # Pi's settings.json is deliberately NOT linked: pi writes machine state
+    # (e.g. lastChangelogVersion) into it, which would churn in git.
+    $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.pi\agent\AGENTS.md'; Target = Join-Path $SettingsDir 'pi\AGENTS.md' }
+    $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.pi\agent\shared';    Target = Join-Path $SettingsDir 'shared' }
 }
 
 if ($settingsLinks) {

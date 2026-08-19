@@ -14,6 +14,7 @@ agents/     custom subagent definitions (.md)
 settings/   global settings files, symlinked into place
   claude/     settings.json, CLAUDE.md        -> ~/.claude/
   copilot/    copilot-instructions.md         -> ~/.copilot/
+  pi/         AGENTS.md                       -> ~/.pi/agent/
 scripts/    repo tooling (linter)
 ```
 
@@ -23,6 +24,7 @@ scripts/    repo tooling (linter)
 |--------------|------------------------------|-------------------------------------|----------|
 | Claude Code  | `~/.claude/skills/`          | `~/.claude/agents/<name>.md`        | `~/.claude/settings.json`, `~/.claude/CLAUDE.md` |
 | Copilot CLI  | `~/.copilot/skills/`         | `~/.copilot/agents/<name>.agent.md` | `~/.copilot/copilot-instructions.md` |
+| Pi           | `~/.pi/agent/skills/`        | — (no subagent concept)             | `~/.pi/agent/AGENTS.md` (+ `~/.pi/agent/extensions/` for hooks) |
 | OpenCode     | `~/.config/opencode/skills/` (Linux) · `%APPDATA%\opencode\skills\` (Win) | — | — |
 
 ## Setup

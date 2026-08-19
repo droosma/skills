@@ -32,6 +32,6 @@
   "model": "gpt-5.6-sol",
   "statusLine": {
     "type": "command",
-    "command": "bash D:/skills/settings/copilot/statusline-command.sh"
+    "command": "C:\\PROGRA~1\\Git\\bin\\bash.exe D:/skills/settings/copilot/statusline-command.sh"
   }
 }

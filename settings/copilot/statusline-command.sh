@@ -112,17 +112,19 @@ else
 fi
 context_seg="${bar} ${emoji} ${pct_color}${used_int}%$(reset)"
 
-# --- session cost / AI credits (yellow) ---
-cost=$(get_num "$flat" total_cost_usd)
-[ -z "$cost" ] && cost=$(get_num "$flat" cost_usd)
+# --- session cost in USD, derived from AI credits used (yellow) ---
+# Copilot's payload carries no currency value, only AI credits:
+#   ai_used.formatted (e.g. "0.58") and ai_used.total_nano_aiu (1 AIC = 1e9 nano).
+# 1 AIC ≈ 1 US cent, so USD = AIC × 0.01. Override with COPILOT_USD_PER_AIC.
+USD_PER_AIC="${COPILOT_USD_PER_AIC:-0.01}"
+
 cost_seg=""
-if [ -n "$cost" ]; then
-  cost_fmt=$(printf '%.2f' "$cost" 2>/dev/null || echo "$cost")
-  cost_seg="$(c 220 200 0)\$${cost_fmt}$(reset)"
-else
-  credits=$(get_num "$flat" credits)
-  [ -z "$credits" ] && credits=$(get_num "$flat" ai_credits)
-  [ -n "$credits" ] && cost_seg="$(c 220 200 0)${credits} cr$(reset)"
+ai_used_obj=$(get_obj "$flat" ai_used)
+aiu=$(get_str "$ai_used_obj" formatted)
+[ -z "$aiu" ] && aiu=$(get_num "$flat" total_nano_aiu | awk '{printf "%.6f", $1/1000000000}')
+if [ -n "$aiu" ]; then
+  usd=$(awk -v a="$aiu" -v r="$USD_PER_AIC" 'BEGIN{printf "%.2f", a*r}' 2>/dev/null)
+  [ -n "$usd" ] && cost_seg="$(c 220 200 0)\$${usd}$(reset)"
 fi
 
 # --- code velocity from uncommitted working-tree changes ---
