@@ -39,15 +39,53 @@ until the CLI paths above are exhausted.
    pwsh -NoProfile -File <skill-dir>/preflight.ps1
    ```
 
-   It runs the checks above read-only and prints which path works.
+   It runs the checks above read-only and prints which path works. The correct
+   tenant/subscription depends on where you run from, so **nothing is
+   hardcoded** — the script discovers the *expected* context (see below),
+   reports the *active* tenant, and warns on a mismatch (the usual cause of the
+   browser sign-in landing on the wrong tenant).
 
 2. **If a step fails on auth:** logging in is interactive — don't attempt it
    yourself. Ask the user to run `! az login` (and `! az devops login` if PAT
-   auth is needed) in this session, then re-run the preflight.
+   auth is needed) in this session, then re-run the preflight. When an expected
+   tenant is known, the script prints the exact `az login --tenant <id>` to run
+   so the browser doesn't default to a different tenant.
 
 3. **Record the outcome.** State the working method in one line at the start of
    the work. If the project has a CLAUDE.md and the working pattern isn't in it
    yet, add it under an "Azure access" note so no future session re-derives it.
+
+## Context-aware tenant selection
+
+Because a single machine's CLI often spans several tenants (e.g. one client per
+tenant), the "right" tenant is per-project, never global. The preflight resolves
+the expected tenant/subscription in this priority order:
+
+1. `-Tenant` / `-Subscription` parameters on the script.
+2. `AZURE_PREFLIGHT_TENANT` / `AZURE_PREFLIGHT_SUBSCRIPTION` environment vars.
+3. A **`.azure-preflight.json`** file, discovered by walking up from the current
+   directory to the drive root — so each repo declares its own tenant:
+
+   ```json
+   {
+     "tenant": "<tenant id or domain>",
+     "subscription": "<subscription id or name>",
+     "devopsOrg": "https://dev.azure.com/<org>"
+   }
+   ```
+
+Behaviour:
+
+- **Expected tenant known + active tenant matches** → proceeds normally.
+- **Expected tenant known + mismatch** → warns and emits the scoped
+  `az login --tenant <id>` (and `az account set --subscription …`) to run; exits
+  non-zero so the mismatch isn't silently ignored.
+- **Nothing configured** → lists the tenants/subscriptions available in the CLI
+  so the correct one is discoverable, and suggests adding a
+  `.azure-preflight.json`.
+
+Prefer committing `.azure-preflight.json` at each Azure-touching repo's root (or
+setting the env vars per shell) rather than passing tenant IDs by hand.
 
 ## During the session
 

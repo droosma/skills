@@ -15,6 +15,27 @@ Native since 2022. Nothing to install. Renders on:
 
 **File extension for raw SVG**: GitHub will not render `.mmd` files natively; commit the diagram in a `.md` with a fenced block for it to appear.
 
+## Azure DevOps Wiki
+
+Native, but with two traps that don't appear elsewhere:
+
+- **Fence is `:::mermaid … :::`**, a colon fence — *not* the ` ```mermaid ` backtick fence. The backtick block renders as plain text.
+- **Older Mermaid engine**, stricter about label content and well behind upstream:
+  - A node label starting with a markdown list marker (`"1. …"`, `"- …"`, `"* …"`) fails with **`Unsupported markdown: list`**. Use `"1 — …"`, `"Step 1: …"`, or remove the marker. This bites numbered **Dynamic**/step diagrams especially.
+  - The `C4Context`/`C4Container` macros are unreliable — prefer a `flowchart` styled as C4 (explicit level in the title, a legend, typed/teched nodes, labelled arrows).
+  - General reserved-word-as-id rules still apply (a node id `graph` → `Parse error … got 'GRAPH'`; rename to `msgraph`).
+
+```
+:::mermaid
+flowchart TB
+    s1["1 — Employee authenticates"]
+    s2["2 — Service issues a token"]
+    s1 --> s2
+:::
+```
+
+Pre-render with `mmdc` (see Validation) before publishing — Azure DevOps gives no live preview of the parse error until the page is saved.
+
 ## GitLab
 
 Native since v10.3. Same fenced-block syntax. Generally stays closer to upstream than GitHub, but still lags beta diagrams.

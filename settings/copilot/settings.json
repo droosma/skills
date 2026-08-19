@@ -1,0 +1,10 @@
+{
+  "feature_flags": {
+    "enabled": [
+      "STATUS_LINE"
+    ]
+  },
+  "statusLine": {
+    "command": "bash D:/skills/settings/copilot/statusline-command.sh"
+  }
+}

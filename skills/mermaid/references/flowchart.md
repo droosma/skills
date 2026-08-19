@@ -216,6 +216,8 @@ Auto-wrap controlled by `config.markdownAutoWrap` (default true).
 ## Common gotchas
 
 - **`end` as a node ID** — parser interprets it as `end` of a subgraph. Use `End` or `"end"`.
+- **`graph` (and other keywords) as a node ID** — `graph`, `subgraph`, `class`, `style`, `click`, `direction`, `end` are reserved. A node id like `graph["Microsoft Graph"]` fails with `Parse error … got 'GRAPH'`. Rename the id (e.g. `msgraph`) or quote it; the *label* text may still say "Graph".
+- **Node label starting with a number and dot** — a label like `"1. Do the thing"` is parsed as a markdown list and breaks on some renderers (Azure DevOps wiki reports `Unsupported markdown: list`). Use `"1 — Do the thing"`, `"Step 1: …"`, or turn off `config.markdownAutoWrap`.
 - **Edge-like characters in labels** — `-->` inside a quoted label is fine; outside of quotes it starts an edge. Always quote text with arrows.
 - **Spaces in IDs** — not allowed. Use `snake_case` or `kebab-case` IDs and put the display text in brackets.
 - **Node must be declared before use in a class directive** — if you write `class A foo` before ever referencing `A`, it silently ignores the style.

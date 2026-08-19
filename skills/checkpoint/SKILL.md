@@ -61,6 +61,19 @@ Outputs land in: <directory>
 - Background jobs: write output to files, not just stdout, and note the output
   path in `PROGRESS.md` so a later session can find partial results.
 
+## Completion cleanup
+
+When every phase is verified complete:
+
+1. Confirm that every expected output exists on disk.
+2. Confirm that no phase remains `[>]` or `[ ]`.
+3. Delete `PROGRESS.md`. A completed effort no longer needs a resume
+   checkpoint, and leaving the file behind creates stale project state.
+
+Keep `PROGRESS.md` only when work remains incomplete, blocked, or intentionally
+paused. The final user-facing response should point to the durable outputs, not
+to the deleted checkpoint.
+
 ## Resume mode
 
 1. Read `PROGRESS.md` in full.
@@ -82,3 +95,4 @@ Outputs land in: <directory>
   first.
 - Updating the checkpoint only at the end of the session. The whole point is
   that the end may never come.
+- Leaving `PROGRESS.md` behind after every phase and output has been verified.

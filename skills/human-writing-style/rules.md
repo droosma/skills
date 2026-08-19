@@ -1,6 +1,6 @@
-# Human writing style: expanded rules (2-22)
+# Human writing style: expanded rules (2-27)
 
-Sibling reference file for the `human-writing-style` skill. This file contains the expanded rules 2 through 22.
+Sibling reference file for the `human-writing-style` skill. This file contains the expanded rules 2 through 27.
 
 Rule 1 (the master rule, *prefer specific detail over generic praise*), the self-check, and the tone guidance live in `SKILL.md` and should already be in your context if you are reading this.
 
@@ -175,7 +175,7 @@ Humans use three-item lists naturally, and sometimes they're the right choice. T
 
 ## Rule 11. Never use em dashes
 
-Never output an em dash character. Not once. Not for asides, not for emphasis, not for lists. Use commas, periods, colons, semicolons, or parentheses instead. Em dashes are one of the most statistically reliable AI formatting tells. Peer-reviewed research and Wikipedia's AI detection guide both flag them.
+Never output an em dash character. Not once. Not for asides, not for emphasis, not for lists. Use commas, periods, colons, or semicolons instead. Don't reach for parentheses either: swapping an em dash for parentheses just trades one tell for another. Also avoid en dashes and hyphens used as dash substitutes. If a thought needs separation, end the sentence or use a comma. Em dashes are one of the most statistically reliable AI formatting tells. Peer-reviewed research and Wikipedia's AI detection guide both flag them.
 
 **This is a hard rule, not a preference.** If your output contains a single em dash, rewrite the sentence.
 
@@ -187,7 +187,7 @@ These rules apply to the prose you generate for the user.
 
 - **Does not apply to** instructional documents, skill files, technical reference, or anything where structural formatting aids scanability. Those legitimately use bold headers, bullet lists, and the like.
 - Don't bold key phrases in running prose for emphasis.
-- Don't create bulleted lists with bold headers followed by colon-separated descriptions unless the user specifically asks for that format. (e.g., "**Key Term:** description text" is a classic AI pattern.)
+- Don't create bulleted lists with bold headers followed by colon-separated descriptions unless the user specifically asks for that format. The tell is a bold label and colon that just restates the line (e.g., "**Performance:** Performance improved 20%"). Convert those to prose. A bold lead-in that ends in a period, names the item, and is followed by genuinely new detail ("**Schema in TypeScript.** Tables live in one file.") is fine, not a tell.
 - Don't capitalize every word in headings (use sentence case).
 - Use formatting only when it genuinely aids readability.
 - Write numbers as digits (3 years, 10 tools, 500 users), not words.
@@ -314,3 +314,68 @@ Real writing breathes unevenly. Short. Then longer. Then a fragment. Then a 30-w
 ## Rule 22. Use sentence case in headers
 
 AI capitalizes all main words in headers: "Global Context: Critical Mineral Demand." Humans typically use sentence case: "Global context: critical mineral demand." Do that.
+
+---
+
+## Rule 23. Don't overuse the colon
+
+Colons are fine before a list or an example. They are not mid-sentence connectors, and AI reaches for them as a crutch to glue two clauses together with a false air of significance.
+
+❌ *If you're coming from traditional automation: instead of registering event handlers, you describe conditions.*
+✅ *Describing when the scheduler should fire works best as plain English.*
+
+The colon added nothing but drama. If a thought needs separation, end the sentence or use a comma. Let the point stand without the comparison framing.
+
+---
+
+## Rule 24. Kill formatting artifacts: emojis and curly quotes
+
+Two small tells that scream "machine-generated":
+
+- **Decorative emojis.** Remove them from headings, bullets, and section labels (✅, 🚀, 💡, 🔑, etc.). They are almost never how a human writes prose. The obvious exception is casual chat or a genre where the user clearly wants them.
+- **Curly (smart) quotes and apostrophes.** Replace “curly quotes” and ‘curly apostrophes’ with straight quotes ("" and '). Copy-pasted AI output is full of curly punctuation that a person typing in a plain editor wouldn't produce.
+
+---
+
+## Rule 25. Replace abstract metaphor nouns with the concrete word
+
+AI loves nouns that sound technical but stand in for a plainer, concrete word. They read as jargon and usually hide the fact that the sentence isn't saying much.
+
+**Watch for:** *substrate*, *wedge*, *vector*, *locus*, *vantage*, *nexus*, *primitive* (as a noun), *harness* (as a metaphor), *surface* (as in "API surface"), *bedrock*, *scaffolding* (as a metaphor), *modality*, *paradigm*, *gold-plating*, *ratchet* (as a metaphor), *evacuate* (for moving code), *endgame*, *north star*, *flywheel*.
+
+**Pick the concrete word:**
+- "substrate" → "base"
+- "wedge in" → "add"
+- "vector" → "way" or "method"
+- "gold-plating" → "more than the job needs"
+- "ratchet" → the mechanism's real name, or "a limit that only tightens"
+- "evacuate" → "move out"
+- "endgame" → "the last phase"
+
+---
+
+## Rule 26. Cut propping adverbs, or use a stronger verb
+
+Different from the "magic adverbs" tell (rule for *quietly*, *deeply*, *fundamentally*, which inject fake significance). This one is about adverbs propping up a weak verb. When you need an adverb to make a verb carry its weight, the verb is usually wrong.
+
+- "runs quickly" → "is fast", or give the number.
+- "significantly improves" → the measured delta.
+- "could potentially possibly be argued that it might" → "may". Stacked hedges collapse to one honest one.
+
+❌ *The new index significantly improves query speed.*
+✅ *The new index cut median query time from 400ms to 60ms.*
+
+---
+
+## Rule 27. Say what it does, not how it feels
+
+Mostly for technical and product writing, but it applies anywhere. AI describes a feeling the thing gives you instead of the mechanism or the fact. The fix names the mechanism, or a number.
+
+❌ *The database stays close at hand.* / *SQL you can read.* / *Types that follow your schema.*
+✅ *`.toSQL()` returns the exact string sent to the database.* / *A column rename fails the build.*
+
+Ask what the sentence tells the reader to do or know, then write that. If you can't restate it as a concrete instruction, fact, or number, cut it.
+
+**The portability test:** if the sentence could appear unchanged in another project's docs, it says nothing about this one. Cut it or replace it with something only true here.
+
+**One idea per sentence.** If the reader has to backtrack to parse a sentence, break it in two or drop clauses.

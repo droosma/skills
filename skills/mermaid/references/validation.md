@@ -61,9 +61,13 @@ If the environment can't run `mmdc`, the user's best option is https://mermaid.l
 ### "Parse error on line N"
 
 - **Unquoted label with special chars** → wrap the label in `"…"`.
-- **Reserved word as ID** (`end`, `class`, `subgraph`, `state`, …) → rename or quote.
+- **Reserved word as ID** (`end`, `graph`, `class`, `subgraph`, `state`, `style`, `click`, `direction`, …) → rename or quote. A node id `graph` fails with `Parse error … got 'GRAPH'`; rename to e.g. `msgraph`.
 - **Wrong header for the diagram type** (e.g. `graph` syntax under `stateDiagram`) → match the header to the body.
 - **Smart quotes** (`" "` vs `" "`) — paste from Word/Google Docs often sneaks these in. Replace with straight ASCII quotes.
+
+### "Unsupported markdown: list" (Azure DevOps wiki)
+
+A node label that begins with a markdown list marker — `"1. text"`, `"- text"`, `"* text"` — is parsed as a list and rejected. Rewrite the label: `"1 — text"`, `"Step 1: text"`, or drop the leading marker. Azure DevOps wiki also uses the colon fence `:::mermaid … :::`, not ` ```mermaid `. See the Azure DevOps Wiki section in `markdown-rendering.md`.
 
 ### "Expecting 'SEMI', 'NEWLINE'…"
 
@@ -106,7 +110,7 @@ Run this mentally before handing a diagram back. Each item, if violated, is a co
 - [ ] Frontmatter YAML (if present) is valid — ending `---` line, consistent indentation, hex colours (not names) under `themeVariables`.
 - [ ] No trailing content after the last valid statement (e.g. stray `end` with no opening `subgraph`).
 - [ ] Diagram-specific traps checked:
-  - Flowchart: `end` as node → quote it.
+  - Flowchart: `end` or `graph` as node id → rename (`End`, `msgraph`) or quote; label starting `"1. …"` → use `"1 — …"` (breaks Azure DevOps wiki as `Unsupported markdown: list`).
   - Sequence: actors exist before arrows use them.
   - Class: `~T~` for generics, not `<T>`.
   - State: use `stateDiagram-v2`.
@@ -118,9 +122,10 @@ Run this mentally before handing a diagram back. Each item, if violated, is a co
 ## Worst offenders (personal hit parade)
 
 1. **Smart quotes from pasted text.**
-2. **`end` as a flowchart node ID.**
-3. **Using `graph` when you wanted `flowchart` features (or vice versa).**
-4. **Forgetting the `-beta` suffix.**
-5. **Unquoted labels containing `(…)` that Mermaid interprets as another shape.**
-6. **Writing `A -->|text| B` in a class diagram** (class uses `A --> B : text`).
-7. **Unbalanced `activate`/`deactivate` in sequence diagrams.**
+2. **`end` or `graph` as a flowchart node ID** (`graph` → `got 'GRAPH'`; rename to `msgraph`).
+3. **A node label starting `"1. …"`** — parsed as a markdown list (Azure DevOps: `Unsupported markdown: list`); use `"1 — …"`.
+4. **Using `graph` when you wanted `flowchart` features (or vice versa).**
+5. **Forgetting the `-beta` suffix.**
+6. **Unquoted labels containing `(…)` that Mermaid interprets as another shape.**
+7. **Writing `A -->|text| B` in a class diagram** (class uses `A --> B : text`).
+8. **Unbalanced `activate`/`deactivate` in sequence diagrams.**

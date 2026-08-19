@@ -31,9 +31,13 @@ Your job is to reverse that tendency. Be specific. Be plain. Be human.
 
 **Use contractions naturally.** Don't, can't, won't, it's. AI tends to write out the full form. Humans contract.
 
+**Acknowledge complexity.** Removing AI patterns is only half the job; sterile, voiceless writing is just as obvious a tell. React to things instead of neutrally listing pros and cons. "Impressive but also kind of unsettling" beats "impressive." Let some mess in; perfect, evenly-weighted structure looks machine-made.
+
 **Check context first.** These rules apply differently depending on genre. See "Tone guidance by context" below. An email and a technical doc need different calibrations.
 
 **Preserve the user's voice.** If the user's draft or prior writing has a distinctive style (sardonic, academic, casual, formal), match it. Don't flatten everything to "plain and specific." These rules are about eliminating AI tells, not imposing a single voice.
+
+**Preserve meaning when rewriting.** When you're editing or humanizing existing text rather than drafting from scratch, keep every idea, claim, and fact from the original. You're changing how it reads, not what it says. Cutting filler is good; cutting content is not. If removing a "filler" phrase would drop an actual point, keep the point and rephrase around it.
 
 **When a banned word is the right word, use it.** If "intricate" is the precise technical term in a textile or watchmaking context, keep it. If "foster" is the term of art in developmental psychology, keep it. The problem is gratuitous usage and clustering, not the words themselves.
 
@@ -96,6 +100,16 @@ If you remember nothing else from this skill, catch these. They are the highest-
 
 **Magic adverbs:** "Quietly" / "Deeply" / "Fundamentally" / "Remarkably" / "Arguably" used to inject unearned significance.
 
+**Propping adverbs:** "runs quickly", "significantly improves", "could potentially possibly." An adverb holding up a weak verb means the verb is wrong. Use a stronger verb or a number: "is fast", the measured delta.
+
+**Abstract metaphor nouns:** "substrate", "wedge", "vector", "nexus", "bedrock", "north star", "flywheel", "API surface", "paradigm." They sound technical but usually have a plainer concrete word. Pick the concrete word.
+
+**Feeling-not-mechanism:** describing how a thing feels instead of what it does. "The database stays close at hand" says nothing; "`.toSQL()` returns the exact string sent to the database" does. If a sentence could appear unchanged in another project's docs, it says nothing about this one.
+
+**Colon-as-connector:** colons gluing two clauses mid-sentence for false gravity. Fine before a list or example, not as a crutch.
+
+**Formatting artifacts:** decorative emojis in headings or bullets, and curly “smart” quotes. Use straight quotes and drop the emojis.
+
 **Dead metaphor beating:** Latching onto one metaphor and repeating it 5+ times across a piece instead of using it once and moving on.
 
 For full specifics, replacements, and per-item diagnostics, see the reference files listed at the bottom of this file.
@@ -116,7 +130,7 @@ For full specifics, replacements, and per-item diagnostics, see the reference fi
 8. **Challenges formula.** Does the piece end with "Despite X, faces challenges... Despite those challenges, continues to..."? Rewrite with specifics.
 9. **Negative parallelisms.** ANY sentence that negates one framing then asserts a corrected one? ("This isn't X. This is Y." / "It's not about X. It's about Y.") Delete everything before the positive claim. This is the single strongest AI tell.
 10. **Triple rhythm.** Are your lists always in threes? Vary the count.
-11. **Em dashes.** Any em dashes at all? Replace with commas, periods, colons, semicolons, or parentheses. Never use em dashes.
+11. **Em dashes.** Any em dashes at all? Replace with commas, periods, colons, or semicolons. Don't swap in parentheses (that just trades one tell for another), and avoid en dashes or hyphens used as dashes. Never use em dashes.
 12. **Boldface abuse.** Bolding phrases in running prose? Stop (unless this is instructional or reference material).
 13. **Heavy transitions.** Opening sentences with "Furthermore," "Moreover," "That said," "With that in mind," "It's worth noting"? Cut them.
 14. **Passive pileup.** Three or more consecutive passive sentences? Rewrite at least one in active voice.
@@ -134,6 +148,12 @@ For full specifics, replacements, and per-item diagnostics, see the reference fi
 26. **Invented labels.** Did you coin a compound concept ("the X paradox", "the Y trap") without citing a source? Cut or explain.
 27. **Dead metaphor.** Same metaphor used more than twice? Use it once, move on.
 28. **Magic adverbs.** "Quietly", "deeply", "fundamentally", "remarkably" injecting fake significance? Cut them.
+29. **Propping adverbs.** "runs quickly", "significantly improves"? Swap in a stronger verb or the number.
+30. **Abstract metaphor nouns.** "substrate", "wedge", "vector", "nexus", "north star", "API surface"? Replace with the concrete word.
+31. **Feeling vs. mechanism.** Any sentence naming how something feels instead of what it does, or that could appear in any project's docs? Name the mechanism or a number, or cut.
+32. **Colon overuse.** Colons used as mid-sentence connectors rather than before a list or example? Rewrite so the point stands on its own.
+33. **Formatting artifacts.** Decorative emojis in headings or bullets? Curly quotes or apostrophes? Remove the emojis, convert to straight quotes.
+34. **Meaning preserved (rewrites only).** If you edited existing text, does the result still contain every idea, claim, and fact from the original? You changed how it reads, not what it says.
 
 If a check needs deeper guidance, look up the corresponding rule in `rules.md`.
 
@@ -174,7 +194,7 @@ This document captures taste. Apply it with judgment, not mechanically.
 
 These are not auto-loaded with this skill. Read them on demand using the file-reading tool available to you.
 
-- **`rules.md`**: Full expanded rules 2-22 with banned-pattern lists and ❌/✅ examples for each. **Read when** writing prose longer than a short paragraph, or when the self-check flags a pattern and you need the specifics.
+- **`rules.md`**: Full expanded rules 2-27 with banned-pattern lists and ❌/✅ examples for each. **Read when** writing prose longer than a short paragraph, or when the self-check flags a pattern and you need the specifics.
 - **`vocabulary.md`**: The full AI vocabulary list with per-item replacements and diagnostics. **Read when** editing or rewriting existing text, or when you suspect a vocabulary cluster and want to confirm which words count.
 - **`examples.md`**: A full before/after paragraph rewrite with a rule-by-rule walkthrough. **Read when** writing longer prose, or when you want to see how the rules interact across a full paragraph.
 - **`references/sources.md`**: External sites that document AI writing patterns. **Read when** the user asks to update or improve this skill, or when you want to discover new patterns not yet covered here.
