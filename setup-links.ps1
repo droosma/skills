@@ -228,6 +228,7 @@ if ('Claude Code' -in $selectedTools) {
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.claude\shared';        Target = Join-Path $SettingsDir 'shared' }
 }
 if ('Copilot CLI' -in $selectedTools) {
+    $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\settings.json';               Target = Join-Path $SettingsDir 'copilot\settings.json' }
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\copilot-instructions.md'; Target = Join-Path $SettingsDir 'copilot\copilot-instructions.md' }
     $settingsLinks += @{ Link = Join-Path $env:USERPROFILE '.copilot\shared';                  Target = Join-Path $SettingsDir 'shared' }
 }

@@ -8,6 +8,7 @@ apply globally, and changes made by the tools land back in this repo as diffs.
 |---|---|---|
 | `claude/settings.json` | `~/.claude/settings.json` | Claude Code user settings: model, permission allow/deny lists |
 | `claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions (loaded every session) |
+| `copilot/settings.json` | `~/.copilot/settings.json` | Copilot CLI user settings: model, allowed URLs, plugins, status line |
 | `copilot/copilot-instructions.md` | `~/.copilot/copilot-instructions.md` | Copilot CLI user-level custom instructions |
 | `shared/` | `~/.claude/shared/` **and** `~/.copilot/shared/` | Tool-agnostic guideline modules, one small file per topic |
 

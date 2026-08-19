@@ -242,6 +242,7 @@ if tool_selected "Claude Code"; then
     [[ -d "$SETTINGS_DIR/shared" ]]               && link_repo "$HOME/.claude/shared"        "$SETTINGS_DIR/shared"               "~/.claude/shared" 1
 fi
 if tool_selected "Copilot CLI"; then
+    [[ -f "$SETTINGS_DIR/copilot/settings.json" ]]         && link_repo "$HOME/.copilot/settings.json"         "$SETTINGS_DIR/copilot/settings.json"         "~/.copilot/settings.json" 1
     [[ -f "$SETTINGS_DIR/copilot/copilot-instructions.md" ]] && link_repo "$HOME/.copilot/copilot-instructions.md" "$SETTINGS_DIR/copilot/copilot-instructions.md" "~/.copilot/copilot-instructions.md" 1
     [[ -d "$SETTINGS_DIR/shared" ]]                          && link_repo "$HOME/.copilot/shared"                  "$SETTINGS_DIR/shared"                           "~/.copilot/shared" 1
 fi

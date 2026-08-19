@@ -1,10 +1,37 @@
 {
-  "feature_flags": {
-    "enabled": [
-      "STATUS_LINE"
-    ]
+  "disabledSkills": [],
+  "allowedUrls": [
+    "https://dev.azure.com",
+    "https://en.wikipedia.org",
+    "https://handleiding.exquise.nl",
+    "https://docs.github.com",
+    "https://github.com",
+    "https://learn.microsoft.com",
+    "https://tropes.fyi",
+    "https://azure.microsoft.com",
+    "https://api.nuget.org",
+    "https://graph.microsoft.com",
+    "https://api.github.com"
+  ],
+  "enabledPlugins": {
+    "dotnet@dotnet-agent-skills": true,
+    "dotnet-msbuild@dotnet-agent-skills": true,
+    "dotnet-upgrade@dotnet-agent-skills": true,
+    "dotnet-test@dotnet-agent-skills": true
   },
+  "showReasoning": true,
+  "extraKnownMarketplaces": {
+    "dotnet-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "dotnet/skills"
+      }
+    }
+  },
+  "experimental": true,
+  "model": "gpt-5.6-sol",
   "statusLine": {
+    "type": "command",
     "command": "bash D:/skills/settings/copilot/statusline-command.sh"
   }
 }
