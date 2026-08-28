@@ -62,6 +62,22 @@ Each entry lists a replacement and, where useful, a diagnostic for deciding whet
 
 ---
 
+## Claude coding-prose watchlist
+
+The [Load Bearing](https://louisabraham.github.io/load-bearing/) project tracks vocabulary that became characteristic of one cluster of GitHub pull request descriptions associated with Claude-style writing. Its full ranked list is evidence for a writing register, not a blacklist: it contains many normal words and domain terms that would be harmful to ban.
+
+Use this smaller list only as a **cluster detector** in technical prose:
+
+- stance adverbs: *plainly*, *quietly*, *deliberately*, *genuinely*, *precisely*
+- argumentative verbs: *refuses*, *survived*, *asserted*, *carries*, *rests*
+- compressed engineering compounds: *load-bearing*, *byte-identical*, *bit-for-bit*, *re-derived*, *mutation-checked*, *fail-loud*, *hand-rolled*
+
+One occurrence means nothing. If several appear close together, rewrite only the ones that add attitude without information. Keep exact terms when they describe real behavior, test methods, or compatibility guarantees.
+
+This watchlist is intentionally short and manually curated. Do not copy the project's thousand-word ranking into this skill or treat statistical association as proof that a word is bad.
+
+---
+
 ## How to apply
 
 Don't mechanically search-and-replace. For each hit, walk this decision tree:

@@ -34,3 +34,11 @@ The goal is incremental improvement: add what's missing, strengthen what's weak,
 - **What it covers:** A field guide to AI writing tells observed on Wikipedia. Covers significance inflation, legacy/trend language, superficial analyses, over-attribution, social media presence mentions, canned emphasis on notability, formatting tells.
 - **Good for:** Word-level and phrase-level tells with before/after examples from real articles. Strong on the "significance machine" and vague attribution patterns. Also covers formatting tells (bold abuse, em dashes, heading capitalization).
 - **Last reviewed:** 2026-05-22
+
+### Load Bearing: The load-bearing vocabulary of Claude
+
+- **URL:** https://louisabraham.github.io/load-bearing/
+- **Source:** https://github.com/louisabraham/load-bearing
+- **What it covers:** A continuously updated analysis of vocabulary clusters in public GitHub pull request descriptions. It identifies a fast-growing Claude-associated writing register through word distributions rather than a hand-written list of bad words.
+- **Good for:** Spotting clusters in technical and code-review prose, especially stance adverbs, argumentative verbs, and compressed engineering compounds. Use it as evidence for a small curated watchlist, not as a blacklist: the published ranking contains many ordinary words and legitimate technical terms.
+- **Last reviewed:** 2026-08-28

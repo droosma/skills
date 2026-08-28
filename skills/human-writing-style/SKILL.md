@@ -63,6 +63,8 @@ If you remember nothing else from this skill, catch these. They are the highest-
 
 **Words (avoid clustering; one in a long piece is usually fine):** *delve*, *crucial*, *pivotal*, *tapestry*, *testament*, *underscore*, *vibrant*, *enhance*, *meticulous*, *landscape* (abstract), *leverage*, *synergy*, *seamless*, *robust*, *empower*, *streamline*, *elevate*, *transformative*, *unprecedented*, *innovative*.
 
+**Claude coding-prose clusters:** In technical writing, watch for several words from the same recognizable register, such as *plainly*, *quietly*, *deliberately*, *genuinely*, *refuses*, *survived*, and *load-bearing*. None is a banned word by itself. See the compact watchlist in `vocabulary.md`; don't import or enforce the source's full statistical vocabulary.
+
 **Phrases:**
 - "stands/serves as a testament to..."
 - "it's not just X, it's Y" (when Y doesn't actually add surprise)
