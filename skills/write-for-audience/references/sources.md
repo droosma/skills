@@ -49,3 +49,8 @@ The evidence behind this skill's rules. Read when updating or extending the skil
 - **Google developer documentation style guide** — https://developers.google.com/style — word list, accessibility, code-sample conventions.
 - **Write the Docs guide** — https://www.writethedocs.org/guide/ — community-maintained documentation practice.
 - **Stripe API docs** — https://docs.stripe.com/api — the working example of expert-audience calibration: use-case-first, common case before edge cases, copy-pasteable everything.
+
+## Controlled English (ASD-STE100)
+
+- **ASD-STE100 Simplified Technical English, Issue 9 (Jan 2025)** — https://www.asd-ste100.org/ — the controlled-language standard behind `controlled-english.md`. Rule summary and secondary sources in `ste100-rules.md`; worked examples in `ste100-examples.md`.
+- The controlled-English layer is adapted from an MIT-licensed skill, Copyright (c) 2026 Dustin Yuchen Teng. The full license text is in `LICENSE-ste100`.

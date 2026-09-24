@@ -1,15 +1,15 @@
-# Agent Skills, Agents & Settings
+# Agent Skills, Plugins, Agents & Settings
 
 Shared, version-controlled configuration for AI coding tools. **This repo is
-the source of truth**: skills, agents, and global settings live here under git,
-and the setup scripts symlink the tools' config locations to these files — so
-edits and `git pull` apply everywhere, and changes the tools write land back
-here as diffs.
+the source of truth**: skills, plugins, agents, and global settings
+live here under git. The setup scripts link portable files and use each tool's
+package manager for plugins and extensions.
 
 ## Layout
 
 ```
 skills/     one directory per skill (SKILL.md + assets)
+plugins/    native plugin/extension manifests installed per tool
 agents/     custom subagent definitions (.md)
 settings/   global settings files, symlinked into place
   claude/     settings.json, CLAUDE.md        -> ~/.claude/
@@ -34,15 +34,15 @@ scripts/    repo tooling (linter)
 > **Prerequisite:** Enable **Developer Mode** (`Settings → For developers`) so symlinks work without elevation.
 
 ```powershell
-.\setup-links.ps1        # interactive multi-select
-.\setup-links.ps1 -All   # everything, non-interactive
+.\setup-links.ps1        # select tools, skills, and plugins
+.\setup-links.ps1 -All   # configure everything, non-interactive
 ```
 
 ### Linux / macOS
 
 ```bash
-./setup-links.sh         # interactive multi-select
-./setup-links.sh --all   # everything, non-interactive
+./setup-links.sh         # select tools, skills, and plugins
+./setup-links.sh --all   # configure everything, non-interactive
 ```
 
 Link behavior: missing targets are created; stale symlinks into this repo are
@@ -65,9 +65,24 @@ dir in the way is skipped (merge it into the repo first).
 | `mermaid` | Syntactically-correct Mermaid diagrams of every type |
 | `observable-language` | On-demand audit of feedback/criteria for container words (vague abstract nouns); rewrites them into filmable behaviour (bilingual NL/EN) |
 | `scope-check` | One-round scope/format/mode alignment before expensive work |
+| `simplify` | Simplify changed code without changing behavior; portable fallback for `pi-simplify` |
 | `tweakers-thread-scraper` | Archive a Tweakers forum thread to JSON/SQLite |
 | `vtt-cleanup` | Strip Teams VTT transcripts down to speaker + text |
-| `write-for-audience` | Calibrate docs to their target audience (non-technical / technical-adjacent / highly technical) with evidence-based readability rules |
+| `write-for-audience` | Calibrate docs to their target audience (non-technical / technical-adjacent / highly technical) with evidence-based readability rules and ASD-STE100 controlled English (strict mode for prompts and other agent-parsed text) |
+
+## Plugins
+
+Plugins preserve behavior that cannot be expressed by a portable
+skill, including hooks, commands, and automatic context injection.
+
+| Package | Claude Code | Copilot CLI | Pi | OpenCode |
+|---|---|---|---|---|
+| `ponytail` | Native plugin | Native plugin | Native package | Native plugin |
+| `pi-simplify` | `simplify` skill | `simplify` skill | Native package | `simplify` skill |
+
+Plugin manifests live under `plugins/`. `testedVersion` records the upstream
+release verified when the manifest was added; marketplace installs may resolve
+a newer compatible release.
 
 ## Agents
 

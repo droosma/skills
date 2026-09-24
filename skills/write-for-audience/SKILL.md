@@ -5,14 +5,14 @@ description: >
   technical-adjacent, or highly technical) and apply evidence-based readability practices
   so readers actually understand it. Use whenever the user asks to write, rewrite, review,
   or improve documentation, READMEs, guides, proposals, announcements, or explanations,
-  or names an audience ("for management", "for the team", "for stakeholders", "for
-  developers", "for a general audience"). Also use when the user says "make this clearer",
-  "make this understandable", "explain this to X", "simplify this", "too technical",
-  "not technical enough", or asks who a document should be written for. If the target
+  or names an audience ("for management", "for stakeholders", "for developers"). Also use
+  when the user says "make this clearer", "explain this to X", "simplify this", "too
+  technical", or asks who a document should be written for, and when writing prompts,
+  tool descriptions, or other text an agent will parse (ASD-STE100 strict mode). If the target
   audience is not stated and cannot be confidently inferred, ask before writing.
   Complements human-writing-style: this skill decides what to say and how to structure
   it for the reader; human-writing-style removes AI tells from the prose. Apply both
-  to any prose output.
+  to documentation and explanatory text.
 ---
 
 # Write for the audience
@@ -23,7 +23,7 @@ This skill counteracts that. The method:
 
 1. **Identify the audience** (ask if unclear).
 2. **Identify the reader's goal** and pick the right document shape.
-3. **Apply the universal readability rules** (they hold for every audience).
+3. **Apply the universal readability rules** (they hold for every audience), including controlled English.
 4. **Calibrate to the audience profile** (vocabulary, depth, structure).
 5. **Run the self-check.**
 
@@ -86,6 +86,8 @@ These are backed by reading research and hold for **every** audience, including 
 
 9. **Beat the curse of knowledge.** You cannot judge your own text's clarity — you know too much. Reread as the target reader: every term, every assumed step, every "obviously". Better: have someone matching the audience read it. In their own words, what does it say? If they can't say, rewrite.
 
+10. **Controlled English underneath everything.** Apply the ASD-STE100 rules in `controlled-english.md` to every audience. The flavored mode is the default for all prose: active voice, simple tenses, no phrasal verbs, no semicolons, no nominalizations, one term per concept, every hedge kept, no fact added. Use strict mode when a machine parses the text (system prompts, tool descriptions, inter-agent instructions, status and error messages): one instruction per sentence, at most 20 words per instruction, one meaning per word.
+
 ---
 
 ## Step 4: Calibrate to the audience
@@ -114,8 +116,9 @@ Before returning output, verify each item. If one fails, revise and re-check.
 10. **Goal match.** Does the document shape match the reader's need (learn / do / look up / understand) without mixing shapes?
 11. **Condescension check** (non-technical and technical-adjacent): any "simply", "just", "obviously", "as everyone knows"? Cut them — if it were simple for this reader, they wouldn't be reading the doc.
 12. **Expert-respect check** (highly technical): any basics explained inline that this audience learned years ago? Replace with a link or delete.
+13. **Controlled English.** Run the scan checklist in `controlled-english.md`: synonym rotation, hedge stacking, nominalization, marketing adjectives, run-on sentences, soft phrasal verbs. Did any rewrite drop a hedge or add a fact?
 
-Then apply the **human-writing-style** skill's self-check to the prose itself — audience calibration and AI-tell removal are separate passes, and documentation needs both.
+Then apply the **human-writing-style** skill's self-check to the prose itself — audience calibration and AI-tell removal are separate passes, and documentation needs both. Skip that pass for strict-mode text: its rhythm and voice rules work against text that must have one reading.
 
 ---
 
@@ -124,5 +127,6 @@ Then apply the **human-writing-style** skill's self-check to the prose itself �
 Not auto-loaded. Read on demand with the file-reading tool.
 
 - **`audiences.md`**: Full per-audience calibration — what each profile knows, wants, and hates, vocabulary rules, ❌/✅ rewrites of the same passage for all three audiences. **Read when** writing anything longer than a paragraph, or when unsure how far to simplify or how much to gloss.
+- **`controlled-english.md`**: ASD-STE100 controlled English — flavored and strict modes, structural and lexical rules, scan checklist, rewrite process, output format for agent-facing text. **Read when** writing or rewriting prompts, tool descriptions, inter-agent instructions, status or error messages, or when prose reads dense, hedged, or easy to misparse.
 - **`structure.md`**: Document structure — BLUF and the inverted pyramid, writing for scanners, heading craft, the Diátaxis document types, and layering for mixed audiences. **Read when** structuring a new document, restructuring an existing one, or writing for a mixed audience.
-- **`references/sources.md`**: The research behind these rules (plain language guidelines, eyetracking studies, GOV.UK evidence, Diátaxis, Google's tech writing course). **Read when** the user asks to update or extend this skill, or challenges a rule and wants the evidence.
+- **`references/sources.md`**: The research behind these rules (plain language guidelines, eyetracking studies, GOV.UK evidence, Diátaxis, Google's tech writing course, ASD-STE100). **Read when** the user asks to update or extend this skill, or challenges a rule and wants the evidence.

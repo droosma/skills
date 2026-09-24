@@ -126,11 +126,11 @@ This formula is one of the strongest AI tells. If challenges or future direction
 
 ---
 
-## Rule 9. Watch the negative parallelisms (THE BIG ONE)
+## Rule 9. Watch the negative parallelisms
 
-This is the single most reliable tell of AI-generated text. Peer-reviewed research backs this up. AI is addicted to these because they make shallow ideas sound profound. They're a crutch. Every single LLM does it, in every single output, multiple times per response.
+This is the single most reliable tell of AI-generated text. Peer-reviewed research backs this up. These constructions make a shallow idea sound profound.
 
-If you see even ONE in your output, rewrite the entire sentence.
+If you find one in your output, rewrite the entire sentence.
 
 **The banned patterns:**
 - "This isn't X. This is Y."
@@ -175,7 +175,7 @@ Humans use three-item lists naturally, and sometimes they're the right choice. T
 
 ## Rule 11. Never use em dashes
 
-Never output an em dash character. Not once. Not for asides, not for emphasis, not for lists. Use commas, periods, colons, or semicolons instead. Don't reach for parentheses either: swapping an em dash for parentheses just trades one tell for another. Also avoid en dashes and hyphens used as dash substitutes. If a thought needs separation, end the sentence or use a comma. Em dashes are one of the most statistically reliable AI formatting tells. Peer-reviewed research and Wikipedia's AI detection guide both flag them.
+Never output an em dash character. Not once. Not for asides, not for emphasis, not for lists. Use commas, periods, or colons instead. Don't reach for parentheses either: swapping an em dash for parentheses just trades one tell for another. Also avoid en dashes and hyphens used as dash substitutes. If a thought needs separation, end the sentence or use a comma. Em dashes are one of the most statistically reliable AI formatting tells. Peer-reviewed research and Wikipedia's AI detection guide both flag them.
 
 **This is a hard rule, not a preference.** If your output contains a single em dash, rewrite the sentence.
 
@@ -307,7 +307,7 @@ Just use the name again. Forced synonyms are worse than repetition.
 
 AI text has perfectly even pacing. Every sentence roughly the same length. Every paragraph the same number of sentences. No texture.
 
-Real writing breathes unevenly. Short. Then longer. Then a fragment. Then a 30-word sentence that earns its length. Vary paragraph length too: some paragraphs are a single sentence.
+Real writing breathes unevenly. Short. Then longer. Then a fragment. Then a 25-word sentence that earns its length. Vary paragraph length too: some paragraphs are a single sentence.
 
 ---
 

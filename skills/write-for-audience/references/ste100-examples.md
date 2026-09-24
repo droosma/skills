@@ -2,7 +2,7 @@
 
 ## Part 1 - official STE examples
 
-These illustrate real ASD-STE100 rules, drawn from public secondary sources (see `references/writing-rules.md`). They are paraphrased illustrations of the rule, not quotes from the standard itself.
+These illustrate real ASD-STE100 rules, drawn from public secondary sources (see `ste100-rules.md`). They are paraphrased illustrations of the rule, not quotes from the standard itself.
 
 | Rule | Before | After | Why |
 |---|---|---|---|
@@ -15,7 +15,7 @@ These illustrate real ASD-STE100 rules, drawn from public secondary sources (see
 
 ## Part 2 - applied to agent output
 
-These are original examples built for this skill's actual use case: rewriting AI agent output so another agent, a translation layer, or a non-native reader can parse it without ambiguity. They are illustrations, not quotes from any real system.
+These are original examples built for the controlled-English layer: rewriting AI agent output so another agent, a translation layer, or a non-native reader can parse it without ambiguity. They are illustrations, not quotes from any real system.
 
 ### Example A - tool description
 
@@ -87,4 +87,4 @@ Flavored mode kept the explanatory rhythm and did not force one fixed term per c
 
 ## How to read these examples
 
-Part 1 shows the actual rules this skill is built on. Part 2 shows the transfer: the same discipline - one meaning per word, active voice, simple tense, one instruction per sentence, explicit conditions instead of buried subordinate clauses - makes machine-to-machine and cross-language text safer to parse, not just aircraft manuals.
+Part 1 shows the actual rules the controlled-English layer is built on. Part 2 shows the transfer: the same discipline - one meaning per word, active voice, simple tense, one instruction per sentence, explicit conditions instead of buried subordinate clauses - makes machine-to-machine and cross-language text safer to parse, not just aircraft manuals.

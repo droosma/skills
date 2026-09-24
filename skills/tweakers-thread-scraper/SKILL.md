@@ -40,8 +40,8 @@ Options:
 
 Requires Python 3 with `requests`, `beautifulsoup4`, and `lxml`. Check before
 the first run (`python -c "import requests, bs4, lxml"`) and `pip install` any
-that are missing. Always write outputs to the user's chosen location or the
-scratchpad — never inside the skill directory.
+that are missing. Write outputs to the user's chosen location or the current
+project directory, never inside the skill directory.
 
 ## Output: JSON shape
 

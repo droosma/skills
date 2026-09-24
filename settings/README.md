@@ -36,10 +36,21 @@ small — everything in CLAUDE.md-imported files is loaded into context every
 session.
 
 Current modules: `working-agreements.md` (artifacts, design discussions, docs
-grounding, scraping, shell), `coding-guidelines.md` (surgical changes,
+grounding, scraping, shell), `response-style.md` (terse final answers,
+controlled-English wording, and diagnostic process updates), `coding-guidelines.md` (surgical changes,
 simplicity first, verifiable goals — adapted from Karpathy's LLM-pitfall
 observations), `long-running-work.md` (PROGRESS.md checkpointing),
 `azure.md` (auth path order).
+
+## Response style
+
+`shared/response-style.md` is the canonical response policy. Claude imports the
+full file. Pi and Copilot include its essential rules in their global
+instructions and link to the full file.
+
+Edit the shared file to change the detailed policy. Keep the short Pi and
+Copilot summaries aligned with it. Start a new tool session after a change so
+the tool reloads its global instructions.
 
 The setup scripts back up any pre-existing real file to `<name>.pre-repo.bak`
 before creating the symlink, and never touch files that are already correct
