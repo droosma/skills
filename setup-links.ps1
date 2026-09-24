@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Symlinks skills, agents, and settings from this repo into AI coding tool
-    config directories. The repo is the source of truth.
+    Configures skills, plugins, agents, and settings from this repo for AI
+    coding tools. The repo is the source of truth.
 
 .DESCRIPTION
-    Interactive multi-select for tools and skills (or -All for everything,
-    non-interactive). Link behavior:
+    Interactive multi-select for tools, skills, and plugins (or -All for
+    everything, non-interactive). Link behavior:
       - missing target            -> create symlink
       - symlink into this repo    -> repaired to the current repo path
       - symlink elsewhere         -> skipped
@@ -23,6 +23,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $SkillRoot  = $PSScriptRoot
 $SkillsDir  = Join-Path $SkillRoot 'skills'
+$PluginsDir = Join-Path $SkillRoot 'plugins'
 $AgentsDir  = Join-Path $SkillRoot 'agents'
 $ExtensionsDir = Join-Path $SkillRoot 'extensions'
 $SettingsDir = Join-Path $SkillRoot 'settings'
@@ -38,6 +39,11 @@ $Tools = @(
 # ── Discover skills (skills/* dirs containing a SKILL.md) ──────────
 $SkillDirs = Get-ChildItem -Directory $SkillsDir |
     Where-Object { Test-Path (Join-Path $_.FullName 'SKILL.md') }
+$PluginDirs = @()
+if (Test-Path $PluginsDir) {
+    $PluginDirs = Get-ChildItem -Directory $PluginsDir |
+        Where-Object { Test-Path (Join-Path $_.FullName 'plugin.json') }
+}
 
 if (-not $SkillDirs) {
     Write-Host '❌ No skill folders found under skills/.' -ForegroundColor Red
@@ -163,6 +169,18 @@ if (-not $selectedTools -or $selectedTools.Count -eq 0) {
 $skillNames = $SkillDirs | ForEach-Object { $_.Name }
 $selectedSkills = if ($All) { $skillNames } else { Show-MultiSelect -Title 'Select skills to link:' -Items $skillNames }
 
+# ── Step 2b: Select plugins ────────────────────────────────────────
+$pluginNames = $PluginDirs | ForEach-Object { $_.Name }
+$selectedPlugins = if ($All) {
+    $pluginNames
+}
+elseif ($pluginNames.Count -gt 0) {
+    Show-MultiSelect -Title 'Select plugins to install:' -Items $pluginNames
+}
+else {
+    @()
+}
+
 # ── Step 3: Link skills ────────────────────────────────────────────
 foreach ($tool in $Tools) {
     if ($tool.Name -notin $selectedTools) { continue }
@@ -240,7 +258,25 @@ if (('Pi' -in $selectedTools) -and (Test-Path $ExtensionsDir)) {
     }
 }
 
-# ── Step 5: Link settings ──────────────────────────────────────────
+# ── Step 5: Install plugins ────────────────────────────────────────
+if ($selectedPlugins) {
+    Write-Host "`n📦 Plugins" -ForegroundColor Cyan
+    foreach ($pluginName in $selectedPlugins) {
+        $manifest = Join-Path $PluginsDir "$pluginName\plugin.json"
+        $installer = Join-Path $SkillRoot 'scripts\install-plugin.ps1'
+        foreach ($toolName in $selectedTools) {
+            try {
+                & $installer -Manifest $manifest -Tool $toolName
+            }
+            catch {
+                Write-Host "   ❌ $pluginName for $toolName — $($_.Exception.Message)" -ForegroundColor Red
+                $counts.errors++
+            }
+        }
+    }
+}
+
+# ── Step 6: Link settings ──────────────────────────────────────────
 # Real files in the way are backed up to <name>.pre-repo.bak first — merge
 # anything you still need from the backup into the repo file afterwards.
 $settingsLinks = @()

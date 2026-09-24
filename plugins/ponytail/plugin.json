@@ -1,0 +1,34 @@
+{
+  "name": "ponytail",
+  "description": "Minimal-code rules, commands, and lifecycle hooks.",
+  "source": "https://github.com/DietrichGebert/ponytail",
+  "testedVersion": "4.9.0",
+  "targets": {
+    "Claude Code": {
+      "mode": "marketplace-plugin",
+      "command": "claude",
+      "marketplaceSource": "DietrichGebert/ponytail",
+      "marketplaceMatch": "DietrichGebert/ponytail",
+      "plugin": "ponytail@ponytail",
+      "installedMatch": "ponytail",
+      "yes": true
+    },
+    "Copilot CLI": {
+      "mode": "marketplace-plugin",
+      "command": "copilot",
+      "marketplaceSource": "DietrichGebert/ponytail",
+      "marketplaceMatch": "DietrichGebert/ponytail",
+      "plugin": "ponytail@ponytail",
+      "installedMatch": "ponytail"
+    },
+    "Pi": {
+      "mode": "pi-package",
+      "source": "git:github.com/DietrichGebert/ponytail",
+      "installedMatch": "DietrichGebert/ponytail"
+    },
+    "OpenCode": {
+      "mode": "opencode-plugin",
+      "plugin": "@dietrichgebert/ponytail"
+    }
+  }
+}

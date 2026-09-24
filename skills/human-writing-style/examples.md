@@ -55,6 +55,44 @@ The before/after pairs in `SKILL.md` and `rules.md` are short by design; they is
 
 ---
 
+## Example 3: Over-explained theme and complete closure
+
+**❌ Before (AI-typical fiction):**
+
+*Mara finally understood that courage did not mean living without fear. It meant
+acting even when fear threatened to overwhelm her. With this lesson clear in
+her mind, she opened her sister's letter, forgave the mistakes of the past, and
+felt the conflict between them dissolve. For the first time in years, she knew
+everything would be all right.*
+
+**✅ After:**
+
+*Mara slid her thumb under the envelope flap. Her sister's handwriting still
+leaned hard to the left, as if every word were walking into wind. She read the
+letter twice, folded it along the old crease, and opened a blank message.*
+
+*"Come Sunday," she typed. "I'll make coffee."*
+
+**What changed and why:**
+
+- The first version states the theme, explains the character's transformation,
+  resolves the relationship, and promises a safe future in one paragraph.
+- The revision expresses courage through action and reconciliation through a
+  small invitation.
+- The sister's handwriting gives the scene a specific detail and suggests
+  history without explaining all of it.
+- The relationship moves forward, but its past and future remain more
+  complicated than the final sentence can settle.
+
+This example applies to fiction and story-like prose. An incident report,
+support email, or tutorial should not hide its conclusion to create literary
+ambiguity.
+
+---
+
 ## How to use this file
 
-When you're rewriting a paragraph and the result still feels AI-ish after one pass, come back here. The pattern to learn is not the specific words used in this example but the **motion**: from generic importance-claims to specific, checkable facts, with length cut along the way.
+When you're rewriting a paragraph and the result still feels AI-ish after one
+pass, come back here. The pattern to learn is not the specific words used in
+these examples but the **motion**: from generic explanation to specific,
+checkable detail, with length cut along the way.

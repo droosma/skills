@@ -1,0 +1,25 @@
+{
+  "name": "pi-simplify",
+  "description": "Review changed code for clarity and maintainability without changing behavior.",
+  "source": "https://github.com/MattDevy/pi-extensions",
+  "testedVersion": "0.2.3",
+  "targets": {
+    "Claude Code": {
+      "mode": "skill-fallback",
+      "skill": "simplify"
+    },
+    "Copilot CLI": {
+      "mode": "skill-fallback",
+      "skill": "simplify"
+    },
+    "Pi": {
+      "mode": "pi-package",
+      "source": "npm:pi-simplify",
+      "installedMatch": "pi-simplify"
+    },
+    "OpenCode": {
+      "mode": "skill-fallback",
+      "skill": "simplify"
+    }
+  }
+}

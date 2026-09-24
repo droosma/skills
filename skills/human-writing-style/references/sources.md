@@ -42,3 +42,14 @@ The goal is incremental improvement: add what's missing, strengthen what's weak,
 - **What it covers:** A continuously updated analysis of vocabulary clusters in public GitHub pull request descriptions. It identifies a fast-growing Claude-associated writing register through word distributions rather than a hand-written list of bad words.
 - **Good for:** Spotting clusters in technical and code-review prose, especially stance adverbs, argumentative verbs, and compressed engineering compounds. Use it as evidence for a small curated watchlist, not as a blacklist: the published ranking contains many ordinary words and legitimate technical terms.
 - **Last reviewed:** 2026-08-28
+
+### StoryScope: Investigating idiosyncrasies in AI fiction
+
+- **Paper:** https://arxiv.org/abs/2604.03136
+- **HTML:** https://arxiv.org/html/2604.03136
+- **Repository:** https://github.com/jenna-russell/storyscope
+- **Dataset:** https://huggingface.co/datasets/jjrussell10/storyscope
+- **What it covers:** A comparison of 10,272 human-written stories with five AI mirrors per prompt, producing 61,608 stories and 304 narrative features across plot, agents, events, time, setting, revelation, perspective, social relationships, situatedness, and style.
+- **Good for:** Narrative-level patterns that word lists miss. The strongest reusable findings concern thematic over-explanation, tidy single-track plots, moral closure, chronological simplicity, revelation depth, escalation, intertextual specificity, and the tendency to express emotion through bodies and settings.
+- **Scope limit:** The stories average roughly 5,000 words. The results support guidance for fiction and other narrative prose, not a general detector or mandatory style guide for emails, documentation, marketing copy, or short posts.
+- **Last reviewed:** 2026-09-01

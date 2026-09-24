@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Symlinks skills, agents, and settings from this repo into AI coding tool
-# config directories. The repo is the source of truth.
+# Configures skills, plugins, agents, and settings from this repo for AI
+# coding tools. The repo is the source of truth.
 #
-# Interactive multi-select for tools and skills, or --all for everything
-# (non-interactive). Link behavior:
+# Interactive multi-select for tools, skills, and plugins, or --all for
+# everything (non-interactive). Link behavior:
 #   - missing target            -> create symlink
 #   - symlink into this repo    -> repaired to the current repo path
 #   - symlink elsewhere         -> skipped
@@ -15,6 +15,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
+PLUGINS_DIR="$SCRIPT_DIR/plugins"
 AGENTS_DIR="$SCRIPT_DIR/agents"
 EXTENSIONS_DIR="$SCRIPT_DIR/extensions"
 SETTINGS_DIR="$SCRIPT_DIR/settings"
@@ -39,6 +40,14 @@ while IFS= read -r -d '' dir; do
     [[ -f "$dir/SKILL.md" ]] || continue
     SKILLS+=("$name")
 done < <(find "$SKILLS_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
+
+PLUGINS=()
+if [[ -d "$PLUGINS_DIR" ]]; then
+    while IFS= read -r -d '' dir; do
+        [[ -f "$dir/plugin.json" ]] || continue
+        PLUGINS+=("$(basename "$dir")")
+    done < <(find "$PLUGINS_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
+fi
 
 if [[ ${#SKILLS[@]} -eq 0 ]]; then
     echo "❌ No skill folders found under skills/."
@@ -204,6 +213,14 @@ else
     multi_select selected_skills "Select skills to link:" "${SKILLS[@]}"
 fi
 
+# ── Step 2b: Select plugins ────────────────────────────────────────
+selected_plugins=()
+if [[ $ALL_MODE -eq 1 ]]; then
+    selected_plugins=("${PLUGINS[@]}")
+elif [[ ${#PLUGINS[@]} -gt 0 ]]; then
+    multi_select selected_plugins "Select plugins to install:" "${PLUGINS[@]}"
+fi
+
 # ── Step 3: Link skills ────────────────────────────────────────────
 for tool in "${selected_tools[@]}"; do
     [[ ${#selected_skills[@]} -eq 0 ]] && break
@@ -252,7 +269,20 @@ if tool_selected "Pi" && [[ -d "$EXTENSIONS_DIR" ]]; then
     done
 fi
 
-# ── Step 5: Link settings (real files backed up to .pre-repo.bak) ──
+# ── Step 5: Install plugins ────────────────────────────────────────
+if [[ ${#selected_plugins[@]} -gt 0 ]]; then
+    printf "\n${CYAN}📦 Plugins${RESET}\n"
+    for plugin in "${selected_plugins[@]}"; do
+        for tool in "${selected_tools[@]}"; do
+            if ! bash "$SCRIPT_DIR/scripts/install-plugin.sh" "$PLUGINS_DIR/$plugin/plugin.json" "$tool"; then
+                printf "   ${RED}❌ %s for %s — installation failed${RESET}\n" "$plugin" "$tool"
+                (( errors++ )) || true
+            fi
+        done
+    done
+fi
+
+# ── Step 6: Link settings (real files backed up to .pre-repo.bak) ──
 printf "\n${CYAN}⚙  Settings${RESET}\n"
 if tool_selected "Claude Code"; then
     [[ -f "$SETTINGS_DIR/claude/settings.json" ]] && link_repo "$HOME/.claude/settings.json" "$SETTINGS_DIR/claude/settings.json" "~/.claude/settings.json" 1

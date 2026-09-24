@@ -22,6 +22,7 @@
       "Bash(az account set*)"
     ]
   },
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bash D:/skills/settings/claude/statusline-command.sh"
@@ -30,5 +31,10 @@
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "skipWorkflowUsageWarning": true
+  "skipWorkflowUsageWarning": true,
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  }
 }
